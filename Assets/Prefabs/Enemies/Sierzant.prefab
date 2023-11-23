@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
-  m_Color: {r: 0.023620605, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.8741627, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: -3280082450577637096}
   - component: {fileID: -7570446846626837826}
   m_Layer: 0
-  m_Name: Piechur
+  m_Name: Sierzant
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d5728b552aa0f4a80f49d1ecc35a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 1.5
+  _movementSpeed: 0.5
   _path: {fileID: 11400000, guid: 5faa587ea9c910145baa1c36097b946c, type: 2}
 --- !u!114 &8864472956633444193
 MonoBehaviour:
@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f147089fa75cab4eafe1833fc9c0317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 3
-  _attackSpeed: 1.5
+  _damage: 15
+  _attackSpeed: 0.5
 --- !u!114 &3108148121319633491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065fd838e61f0a54abdd49c5742f2ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 5
-  _characteristics: {fileID: 11400000, guid: 85f01ece3dad1204a8e4c160db244a06, type: 2}
+  _health: 30
+  _characteristics: {fileID: 11400000, guid: f1c23e2fae97591429258f539dacdd21, type: 2}
 --- !u!61 &-3280082450577637096
 BoxCollider2D:
   m_ObjectHideFlags: 0

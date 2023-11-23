@@ -5,6 +5,8 @@ public class Movement : MonoBehaviour
     [Header("Movement details")]
     [SerializeField] private float _movementSpeed;
     private float _initialMovementSpeed;
+    private float _progress;
+    private float _currentDistance;
 
     [Header("Path")]
     [SerializeField] private Path _path;
@@ -25,6 +27,9 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         ApproachToPoint();
+
+        if(_progress >= 1.0f)
+            Destroy(gameObject);
     }
 
     public void ApproachToPoint()
@@ -37,6 +42,10 @@ public class Movement : MonoBehaviour
 
             if (transform.position == _currentPoint.transform.position)
                 _currentPointIndex++;
+
+            float movement = _movementSpeed * Time.deltaTime;
+            _currentDistance += movement;
+            _progress = _currentDistance / LevelManager.Instance.GetPathLength();
         }
     }
 
