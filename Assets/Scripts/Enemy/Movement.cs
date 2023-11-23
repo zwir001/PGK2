@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -57,5 +58,10 @@ public class Movement : MonoBehaviour
     public void SetMovementSpeed(float movementSpeed)
     {
         _movementSpeed = movementSpeed;
+    }
+
+    public float GetProgress()
+    {
+        return _progress;
     }
 }

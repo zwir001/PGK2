@@ -47,7 +47,7 @@ public class Fortress : MonoBehaviour
             _attackTimer = 0f;
         }
 
-        if (_currentEnemy.IsKilled())
+        if (_currentEnemy != null && _currentEnemy.IsKilled())
         {
             Destroy(_currentEnemy.gameObject);
             _currentEnemy = null;

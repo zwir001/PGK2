@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8486028686246963336}
   - component: {fileID: 8486028686246963338}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 3108148121319633491}
   - component: {fileID: -3280082450577637096}
   - component: {fileID: -7570446846626837826}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Piechur
   m_TagString: Enemy
   m_Icon: {fileID: 0}
