@@ -40,6 +40,7 @@ public class Province
     public int hpBonus;
     public double attackBonus;
     public bool isLost;
+    public bool isAttacked;
     public ResourceTypes bonusResource;
     public int farmLevel;
     public int StoneQuarryLevel;
@@ -66,6 +67,7 @@ public class Province
         bonusResource = resource;
         hpBonus = 0;
         attackBonus = 0;
+        isAttacked = false;
     }
 }
 
