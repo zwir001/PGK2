@@ -27,6 +27,8 @@ public class Bullet : MonoBehaviour
 
             if (enemy.GetComponent<EnemyHealth>().IsKilled())
             {
+                var moneyToAdd = enemy.GetComponent<EnemyHealth>().GetEnemyInitialHealth();
+                Statistics.Instance.AddMoneyEnemyDestroy(moneyToAdd);
                 Destroy(enemy);
             }
             ResetBullet();

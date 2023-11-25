@@ -63,6 +63,11 @@ public class Fortress : MonoBehaviour
     public void DealDamage(int damage)
     {
         _fortressHealth -= damage;
+
+        if (_fortressHealth <= 0)
+            _fortressHealth = 0;
+
+        Statistics.Instance.DecreaseLifeAmount(_fortressHealth);
         DestroyFortress();
     }
 

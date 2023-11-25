@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80a12726a468b044a2b3973bf636ce0, type: 3}
+  m_Name: WiezaLucznicza
+  m_EditorClassIdentifier: 
+  towerName: "Wieza \u0141ucznicza"
+  towerPrice: 350
+  towerSpeed: "Du\u017Ca"
+  towerDescription: "Wie\u017Ca zapewnia rzymskim \u0142ucznikom \u015Bwietny punkt
+    obserwacyjny do prowadzenia ostrza\u0142u pozycji przeciwnika. Tego typu umocnienie
+    zapewnia dobry stosunek \u015Brednich obra\u017Ce\u0144 na sekund\u0119 do zasi\u0119gu
+    ostrza\u0142u."

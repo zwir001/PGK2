@@ -24,6 +24,10 @@ public class LevelManager : MonoBehaviour
     [Header("Enemies")]
     [SerializeField] public Transform enemyHolder;
 
+    private float timer;
+    private float timeToDisplay;
+    private bool _gameStart;
+
     public static LevelManager Instance { get; private set; }
 
     private void Awake()
@@ -40,6 +44,12 @@ public class LevelManager : MonoBehaviour
         _levelIndex = 0;
         _pathLength = 0;
         CalculatePathLength();
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        timeToDisplay = Mathf.FloorToInt(timer % 60);
     }
 
     // Spawn Enemies
@@ -76,6 +86,10 @@ public class LevelManager : MonoBehaviour
         if (GetNumberOfEnemies() <= 0)
         {
             _currentLevel = _levels[_levelIndex];
+
+            if (_levelIndex == 0)
+                _gameStart = true;
+
             _levelIndex++;
             _nextRoundButton.gameObject.SetActive(false);
             SpawnEnemyCoroutine();
@@ -100,9 +114,29 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public int GetLevelIndex()
+    {
+        return _levelIndex;
+    }
+
+    public int GetLevelsCount()
+    {
+        return _levels.Count;
+    }
+
     public int GetNumberOfEnemies()
     {
         return enemyHolder.childCount;
+    }
+
+    public float GetTime()
+    {
+        return timeToDisplay;
+    }
+
+    public bool IsGameStarted()
+    {
+        return _gameStart;
     }
 
     public float GetPathLength()

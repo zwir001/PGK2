@@ -64,8 +64,6 @@ public class Range : MonoBehaviour
 
         foreach (var enemy in _enemies)
         {
-            Debug.Log(enemy);
-
             if (enemy.GetComponent<Movement>().GetProgress() > biggestProgress)
             {
                 biggestProgress = enemy.GetComponent<Movement>().GetProgress();

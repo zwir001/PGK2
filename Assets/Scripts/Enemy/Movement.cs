@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -30,7 +29,9 @@ public class Movement : MonoBehaviour
         ApproachToPoint();
 
         if(_progress >= 1.0f)
+        {
             Destroy(gameObject);
+        }
     }
 
     public void ApproachToPoint()
