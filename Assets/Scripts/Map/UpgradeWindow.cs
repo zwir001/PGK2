@@ -24,6 +24,6 @@ public class UpgradeWindow : MonoBehaviour
         upgradeWindow.SetActive(true);
         nextTurnButton.SetActive(false);
         var component = upgradeWindow.GetComponent<UpgradeWindowManager>();
-        component.OpenUpgradeWindowForProvince(Provinces.listOfProvinces.FirstOrDefault(x => x.id == provinceId));
+        component.OpenUpgradeWindowForProvince(Resources.listOfProvinces.FirstOrDefault(x => x.id == provinceId));
     }
 }

@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 
-public static class Provinces
+public static class Resources
 {
     public static List<Province> listOfProvinces = new()
     {
@@ -21,6 +21,11 @@ public static class Provinces
         new Province(13, "Ateny", 5, 5, 7),
         new Province(14, "Konstantynopol", 5, 5, 7)
     };
+
+    public static int turn = 1;
+    public static int woodNumber = 0;
+    public static int stoneNumber = 0;
+    public static int goldNumber = 0;
 }
 
 public class Province
