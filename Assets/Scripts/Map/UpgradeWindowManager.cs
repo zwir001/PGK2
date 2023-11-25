@@ -59,6 +59,11 @@ public class UpgradeWindowManager : MonoBehaviour
         new int[] { 2000, 2000, 200 }
     };
 
+    private readonly int[] UpgradedWoodAndStoneGains = new int[] { 10, 15, 25 };
+    private readonly int[] UpgradedFoodGains = new int[] { 30, 60, 90 };
+    private readonly int[] UpgradedHPBonus = new int[] { 500, 1000, 2000 };
+    private readonly double[] UpgradedAttackBonus = new double[] {0.02, 0.05, 0.20};
+
     public void OpenUpgradeWindowForProvince(Province provinceToBeUpgraded)
     {
         province = provinceToBeUpgraded;
@@ -98,7 +103,86 @@ public class UpgradeWindowManager : MonoBehaviour
         var currentLevelText = section.transform.Find("CurrentLevel").GetComponent<TMP_Text>();
 
         costText.text = $"Koszt: {costs[0]} drewna, {costs[1]} kamienia, {costs[2]} z³ota";
-        progressBar.value = buildingLevel / 3;
+        progressBar.value = (float) buildingLevel / 3;
         currentLevelText.text = $"{buildingLevel}/3";
+
+        var upgradeButton = section.transform.Find("UpgradeButton").gameObject;
+
+        if(Resources.woodNumber < costs[0] || Resources.stoneNumber < costs[1] || Resources.goldNumber < costs[2])
+        {
+            upgradeButton.SetActive(false);
+        }
+        else
+        {
+            upgradeButton.SetActive(true);
+        }
+    }
+
+    public void UpgradeLumberMill()
+    {
+        var costs = LumberMillCosts[province.lumberMillLevel];
+        Resources.woodNumber -= costs[0];
+        Resources.stoneNumber -= costs[1];
+        Resources.goldNumber -= costs[2];
+
+        if (province.bonusResource == ResourceTypes.Wood)
+            province.woodGain += (int)Math.Ceiling(1.3 * UpgradedWoodAndStoneGains[province.lumberMillLevel]);
+        else
+            province.woodGain += UpgradedWoodAndStoneGains[province.lumberMillLevel];
+
+        province.lumberMillLevel++;
+        UpdateUI();
+    }
+
+    public void UpgradeStoneQuary()
+    {
+        var costs = StoneQuarryCosts[province.StoneQuarryLevel];
+        Resources.woodNumber -= costs[0];
+        Resources.stoneNumber -= costs[1];
+        Resources.goldNumber -= costs[2];
+
+        if (province.bonusResource == ResourceTypes.Stone)
+            province.stoneGain += (int)Math.Ceiling(1.3 * UpgradedWoodAndStoneGains[province.StoneQuarryLevel]);
+        else
+            province.stoneGain += UpgradedWoodAndStoneGains[province.StoneQuarryLevel];
+
+        province.StoneQuarryLevel++;
+        UpdateUI();
+    }
+
+    public void UpgradeFarm()
+    {
+        var costs = FarmCosts[province.farmLevel];
+        Resources.woodNumber -= costs[0];
+        Resources.stoneNumber -= costs[1];
+        Resources.goldNumber -= costs[2];
+        province.foodGain += UpgradedFoodGains[province.farmLevel];
+
+        province.farmLevel++;
+        UpdateUI();
+    }
+
+    public void UpgradeWalls()
+    {
+        var costs = WallsCosts[province.wallsLevel];
+        Resources.woodNumber -= costs[0];
+        Resources.stoneNumber -= costs[1];
+        Resources.goldNumber -= costs[2];
+        province.hpBonus += UpgradedHPBonus[province.wallsLevel];
+
+        province.wallsLevel++;
+        UpdateUI();
+    }
+
+    public void UpgradeStronghold()
+    {
+        var costs = WallsCosts[province.strongholdLevel];
+        Resources.woodNumber -= costs[0];
+        Resources.stoneNumber -= costs[1];
+        Resources.goldNumber -= costs[2];
+        province.attackBonus += UpgradedHPBonus[province.strongholdLevel];
+
+        province.strongholdLevel++;
+        UpdateUI();
     }
 }
