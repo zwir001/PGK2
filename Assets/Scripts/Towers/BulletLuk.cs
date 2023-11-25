@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class BulletLuk : MonoBehaviour
 {
     [SerializeField] protected float _bulletSpeed;
     [SerializeField] protected float _maxDistance;

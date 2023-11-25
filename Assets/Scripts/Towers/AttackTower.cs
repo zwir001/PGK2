@@ -13,7 +13,8 @@ public class AttackTower : MonoBehaviour
     [SerializeField] private List<GameObject> _bullets;
     [SerializeField] private int _amountToPool;
 
-    private Bullet _projectile;
+    private BulletLuk _projectileLuk;
+    private BulletPlomien _projectilePlomien;
     //protected TowerRotation _towerRotation;
     private float _delayTimer;
 
@@ -38,8 +39,18 @@ public class AttackTower : MonoBehaviour
                 //_towerRotation.Rotate(enemy);
 
                 // Attack
-                _projectile = GetPooledObject().GetComponent<Bullet>();
-                _projectile.Attack(enemy);
+                if(GetPooledObject().GetComponent<BulletLuk>() != null)
+                {
+                    _projectileLuk = GetPooledObject().GetComponent<BulletLuk>();
+                    _projectileLuk.Attack(enemy);
+                }
+
+                if(GetPooledObject().GetComponent<BulletPlomien>() != null)
+                {
+                    _projectilePlomien = GetPooledObject().GetComponent<BulletPlomien>();
+                    _projectilePlomien.Attack(enemy);
+                }
+
                 _delayTimer = 0.0f;
             }
 

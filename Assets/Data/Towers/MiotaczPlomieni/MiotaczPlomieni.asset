@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80a12726a468b044a2b3973bf636ce0, type: 3}
+  m_Name: MiotaczPlomieni
+  m_EditorClassIdentifier: 
+  towerName: "Miotacz P\u0142omieni"
+  towerPrice: 100
+  towerSpeed: "\u015Arednia"
+  towerDescription: "Dzi\u0119ki osi\u0105gni\u0119ciom nauki wschodniego cesarstwa
+    Rzymskiego uda\u0142o si\u0119 opracowa\u0107 technologi\u0119 ognia greckiego,
+    uwa\u017Canego za pierwowz\xF3r wsp\xF3\u0142czesnego napalmu. Miotacz p\u0142omieni
+    zapewnia du\u017Ce obra\u017Cenia na sekund\u0119, jednak jego wad\u0105 jest
+    ograniczony zasi\u0119g."

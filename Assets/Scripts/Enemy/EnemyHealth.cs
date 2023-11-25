@@ -20,6 +20,11 @@ public class EnemyHealth : MonoBehaviour
         _health -= damage;
     }
 
+    public void AttackEnemyDamagePerSecond(float damagePerSecond)
+    {
+        _health -= damagePerSecond * Time.deltaTime;
+    }
+
     public float GetEnemyInitialHealth()
     {
         return _initialHealth;
