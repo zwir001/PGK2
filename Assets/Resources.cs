@@ -32,8 +32,8 @@ public class Resources : MonoBehaviour
 
     private void UpdateResources()
     {
-        woodNumber += Provinces.listOfProvince.Sum(x => x.woodGain);
-        stoneNumber += Provinces.listOfProvince.Sum(x => x.stoneGain);
-        goldNumber += Provinces.listOfProvince.Sum(x => x.taxGain);
+        woodNumber += Provinces.listOfProvinces.Where(x => !x.isLost).Sum(x => x.woodGain);
+        stoneNumber += Provinces.listOfProvinces.Where(x => !x.isLost).Sum(x => x.stoneGain);
+        goldNumber += Provinces.listOfProvinces.Where(x => !x.isLost).Sum(x => x.taxGain);
     }
 }
