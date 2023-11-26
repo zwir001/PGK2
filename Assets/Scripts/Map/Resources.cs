@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 
 public static class Resources
@@ -55,7 +56,7 @@ public class Province
         this.woodGain = woodGain;
         this.stoneGain = stoneGain;
         foodGain = 10;
-        foodNeed = 10;
+        foodNeed = 0;
         this.taxGain = taxGain;
         happinessLevel = 100;
         farmLevel = 0;
@@ -69,8 +70,58 @@ public class Province
         attackBonus = 0;
         isAttacked = false;
     }
-}
 
+    public int GetStoneGain()
+    {
+        if (happinessLevel > 75)
+            return stoneGain;
+        else if (happinessLevel > 50)
+            return (int)Math.Floor(0.95 * stoneGain);
+        else if (happinessLevel > 25)
+            return (int)Math.Floor(0.70 * stoneGain);
+        else
+            return (int)Math.Floor(0.30 * stoneGain);
+    }
+
+    public int GetWoodGain()
+    {
+        if (happinessLevel > 75)
+            return woodGain;
+        else if (happinessLevel > 50)
+            return (int)Math.Floor(0.95 * woodGain);
+        else if (happinessLevel > 25)
+            return (int)Math.Floor(0.70 * woodGain);
+        else
+            return (int)Math.Floor(0.30 * woodGain);
+    }
+
+    private int GetImpactOfFoodOnHappiness()
+    {
+        if (foodGain < foodNeed)
+        {
+            double foodDeficit = (double)((foodNeed - foodGain) * 100) / foodNeed;
+
+            if (foodDeficit >= 0.05 && foodDeficit < 0.25)
+                return -5;
+            else if (foodDeficit >= 0.25 && foodDeficit < 0.50)
+                return -10;
+            else if (foodDeficit >= 0.50)
+                return -20;
+        }
+
+        return 0;
+    }
+
+    public void UpdateProvinceStatus()
+    {
+        var happinessLossFromFood = GetImpactOfFoodOnHappiness();
+
+        if (happinessLevel == 100 && happinessLossFromFood > 0 || happinessLevel == -100 && happinessLossFromFood < 0)
+            return;
+
+        happinessLevel += happinessLossFromFood;
+    }
+}
 public enum ResourceTypes
 {
     Wood,

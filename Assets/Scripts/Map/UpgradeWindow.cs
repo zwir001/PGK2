@@ -21,7 +21,7 @@ public class UpgradeWindow : MonoBehaviour
     public void OpenUpgradeWindow()
     {
         var province = Resources.listOfProvinces.FirstOrDefault(x => x.id == provinceId);
-        if (province.isAttacked)
+        if (province.isAttacked && !province.isLost)
         {
             //call another scene
         }

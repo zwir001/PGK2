@@ -85,15 +85,17 @@ public class UpgradeWindowManager : MonoBehaviour
         var provinceText = MainSection.transform.Find("ProvinceName").GetComponent<TMP_Text>();
         provinceText.text = province.name;
 
-        SetResourceGainNumber("GoldNumber", province.taxGain);
-        SetResourceGainNumber("StoneNumber", province.stoneGain);
-        SetResourceGainNumber("WoodNumber", province.woodGain);
+        SetResourceGainNumber("GoldNumber", $"+{province.taxGain}");
+        SetResourceGainNumber("StoneNumber", $"+{province.GetStoneGain()}");
+        SetResourceGainNumber("WoodNumber", $"+{province.GetWoodGain()}");
+        SetResourceGainNumber("HappinessNumber", $"{province.happinessLevel}");
+        SetResourceGainNumber("FoodBalance", $"{province.foodGain-province.foodNeed}");
     }
 
-    private void SetResourceGainNumber(string textFieldName, int resourceGainNumber)
+    private void SetResourceGainNumber(string textFieldName, string resourceGainNumber)
     {
         var fieldText = MainSection.transform.Find(textFieldName).GetComponent<TMP_Text>();
-        fieldText.text = $"+{resourceGainNumber}";
+        fieldText.text = resourceGainNumber;
     }
 
     private void UpdateSection(GameObject section, int[] costs, int buildingLevel)

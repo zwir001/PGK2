@@ -35,8 +35,28 @@ public class GameManager : MonoBehaviour
         _woodCounter.text = $"{Resources.woodNumber}";
         _stoneCounter.text = $"{Resources.stoneNumber}";
         _goldCounter.text = $"{Resources.goldNumber}";
-        UpdateButtons();
         RandomAttackedProvince();
+        UpdateButtons();
+
+        Resources.listOfProvinces.ForEach(x => x.UpdateProvinceStatus());
+        if (Resources.turn % 20 == 0)
+        {
+            IncreaseFoodConsumption();
+        }
+    }
+
+    private void IncreaseFoodConsumption()
+    {
+
+        Resources.listOfProvinces.ForEach(x =>
+        {
+            if (x.foodNeed == 90)
+                return;
+
+            Random gen = new Random();
+            int increase = gen.Next(5);
+            x.foodNeed += increase;
+        });
     }
 
     private void RandomAttackedProvince()
@@ -73,8 +93,8 @@ public class GameManager : MonoBehaviour
 
     private void UpdateResources()
     {
-        Resources.woodNumber += Resources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.woodGain);
-        Resources.stoneNumber += Resources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.stoneGain);
+        Resources.woodNumber += Resources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.GetWoodGain());
+        Resources.stoneNumber += Resources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.GetStoneGain());
         Resources.goldNumber += Resources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.taxGain);
     }
 }
