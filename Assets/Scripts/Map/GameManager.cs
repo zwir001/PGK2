@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,15 @@ public class GameManager : MonoBehaviour
         _stoneCounter.text = $"{Resources.stoneNumber}";
         _goldCounter.text = $"{Resources.goldNumber}";
         UpdateButtons();
+        RandomAttackedProvince();
+    }
+
+    private void RandomAttackedProvince()
+    {
+        //Implementation only for Rome
+        Random gen = new Random();
+        int prob = gen.Next(100);
+        Resources.listOfProvinces.FirstOrDefault(x => x.id == 9).isAttacked = prob < 50;
     }
 
     private void UpdateButtons()

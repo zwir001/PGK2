@@ -20,10 +20,18 @@ public class UpgradeWindow : MonoBehaviour
 
     public void OpenUpgradeWindow()
     {
-        clickableImages.SetActive(false);
-        upgradeWindow.SetActive(true);
-        nextTurnButton.SetActive(false);
-        var component = upgradeWindow.GetComponent<UpgradeWindowManager>();
-        component.OpenUpgradeWindowForProvince(Resources.listOfProvinces.FirstOrDefault(x => x.id == provinceId));
+        var province = Resources.listOfProvinces.FirstOrDefault(x => x.id == provinceId);
+        if (province.isAttacked)
+        {
+            //call another scene
+        }
+        else if (!province.isAttacked && !province.isLost)
+        {
+            clickableImages.SetActive(false);
+            upgradeWindow.SetActive(true);
+            nextTurnButton.SetActive(false);
+            var component = upgradeWindow.GetComponent<UpgradeWindowManager>();
+            component.OpenUpgradeWindowForProvince(province);
+        }
     }
 }
