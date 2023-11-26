@@ -43,6 +43,9 @@ public class Province
     public bool isLost;
     public bool isAttacked;
     public ResourceTypes bonusResource;
+    public Buildings currentConstruction;
+    public int constructionTurns;
+    public double valueAfterUpgrade;
     public int farmLevel;
     public int StoneQuarryLevel;
     public int lumberMillLevel;
@@ -72,6 +75,8 @@ public class Province
         attackBonus = 0;
         isAttacked = false;
         taxLevel = 1;
+        currentConstruction = Buildings.None;
+        constructionTurns = -1;
     }
 
     public int GetStoneGain()
@@ -123,12 +128,51 @@ public class Province
     public void UpdateProvinceStatus()
     {
         UpdateHappinessBalance();
-
+        UpdateBuildProcess();
 
         if (happinessLevel == 100 && happinessBalance > 0 || happinessLevel == -100 && happinessBalance < 0)
             return;
 
         happinessLevel += happinessBalance;
+    }
+
+    private void UpdateBuildProcess()
+    {
+        constructionTurns--;
+
+        if(constructionTurns == 0)
+        {
+            switch (currentConstruction)
+            {
+                case Buildings.LumberMill:
+                    {
+                        lumberMillLevel++;
+                        woodGain = (int) valueAfterUpgrade;
+                    } break;
+                case Buildings.StoneQuarry: 
+                    {
+                        StoneQuarryLevel++;
+                        stoneGain = (int)valueAfterUpgrade;
+                    } break;
+                case Buildings.Farm:
+                    {
+                        farmLevel++;
+                        foodGain = (int)valueAfterUpgrade;
+                    } break;
+                case Buildings.Walls: {
+                        wallsLevel++;
+                        hpBonus = (int)valueAfterUpgrade;
+                    }
+                    break;
+                case Buildings.Stronghold: 
+                    {
+                        strongholdLevel++;
+                        attackBonus = valueAfterUpgrade;
+                    } break;
+            }
+            currentConstruction = Buildings.None;
+            constructionTurns = -1;
+        }
     }
 
     private int GetImpactOfTaxesOnHappiness()
@@ -148,4 +192,14 @@ public enum ResourceTypes
     Wood,
     Gold,
     Stone
+}
+
+public enum Buildings
+{
+    StoneQuarry,
+    Farm,
+    LumberMill,
+    Walls,
+    Stronghold,
+    None
 }

@@ -28,37 +28,37 @@ public class UpgradeWindowManager : MonoBehaviour
 
     private readonly List<int[]> LumberMillCosts = new List<int[]>
     {
-        new int[] { 150, 50, 0},
-        new int[] { 750, 100, 0 },
-        new int[] { 1500, 200, 100 }
+        new int[] { 150, 50, 0, 2},
+        new int[] { 750, 100, 0, 5},
+        new int[] { 1500, 200, 100, 10}
     };
 
     private readonly List<int[]> FarmCosts = new List<int[]>
     {
-        new int[] { 200, 50, 0},
-        new int[] { 250, 100, 0 },
-        new int[] { 300, 150, 50 }
+        new int[] { 200, 50, 0, 1},
+        new int[] { 250, 100, 0, 3},
+        new int[] { 300, 150, 50, 5}
     };
 
     private readonly List<int[]> StoneQuarryCosts = new List<int[]>
     {
-        new int[] { 100, 100, 0},
-        new int[] { 500, 300, 0 },
-        new int[] { 1000, 700, 100 }
+        new int[] { 100, 100, 0, 2},
+        new int[] { 500, 300, 0, 5},
+        new int[] { 1000, 700, 100, 10}
     };
 
     private readonly List<int[]> WallsCosts = new List<int[]>
     {
-        new int[] { 50, 250, 0},
-        new int[] { 100, 750, 0 },
-        new int[] { 200, 1500, 50 }
+        new int[] { 50, 250, 0, 2},
+        new int[] { 100, 750, 0, 3},
+        new int[] { 200, 1500, 50, 5}
     };
 
     private readonly List<int[]> StrongholdCosts = new List<int[]>
     {
-        new int[] { 500, 500, 50},
-        new int[] { 1000, 1000, 100 },
-        new int[] { 2000, 2000, 200 }
+        new int[] { 500, 500, 50, 5},
+        new int[] { 1000, 1000, 100, 10},
+        new int[] { 2000, 2000, 200, 15}
     };
 
     private readonly int[] taxGains = new int[] { 0, 5, 10 };
@@ -95,6 +95,7 @@ public class UpgradeWindowManager : MonoBehaviour
         SetText("TaxLevel", $"{province.taxLevel}");
 
         SetVisibilityOfTaxButtons();
+        UpdateConstructionStatus();
 
         string happinessBalanceText;
         if (province.happinessBalance >= 0)
@@ -103,6 +104,40 @@ public class UpgradeWindowManager : MonoBehaviour
             happinessBalanceText = $"{province.happinessLevel}{province.happinessBalance}";
 
         SetText("HappinessNumber", happinessBalanceText);
+    }
+
+    private void UpdateConstructionStatus()
+    {
+        var buildStatusText = MainSection.transform.Find("ConstructionInfo").GetComponent<TMP_Text>();
+        switch (province.currentConstruction)
+            {
+            case Buildings.StoneQuarry:
+                {
+                    buildStatusText.text = $"Budowa: Kamienio³om {province.StoneQuarryLevel + 1} za {province.constructionTurns} tur";
+                } break;
+            case Buildings.LumberMill:
+                {
+                    buildStatusText.text = $"Budowa: Tartak {province.lumberMillLevel + 1} za {province.constructionTurns} tur";
+                } break;
+            case Buildings.Farm:
+                {
+                    buildStatusText.text = $"Budowa: Farma {province.farmLevel + 1} za {province.constructionTurns} tur";
+                } break;
+            case Buildings.Walls:
+                {
+                    buildStatusText.text = $"Budowa: Mury {province.wallsLevel + 1} za {province.constructionTurns} tur";
+                } break;
+            case Buildings.Stronghold:
+                {
+                    buildStatusText.text = $"Budowa: Twierdza {province.strongholdLevel + 1} za {province.constructionTurns} tur";
+                }
+                break;
+            default:
+                {
+                    buildStatusText.text = "";
+                } break;
+
+        }
     }
 
     private void SetVisibilityOfTaxButtons()
@@ -147,7 +182,7 @@ public class UpgradeWindowManager : MonoBehaviour
 
         var upgradeButton = section.transform.Find("UpgradeButton").gameObject;
 
-        if(Resources.woodNumber < costs[0] || Resources.stoneNumber < costs[1] || Resources.goldNumber < costs[2])
+        if(Resources.woodNumber < costs[0] || Resources.stoneNumber < costs[1] || Resources.goldNumber < costs[2] || province.currentConstruction != Buildings.None)
         {
             upgradeButton.SetActive(false);
         }
@@ -164,12 +199,14 @@ public class UpgradeWindowManager : MonoBehaviour
         Resources.stoneNumber -= costs[1];
         Resources.goldNumber -= costs[2];
 
-        if (province.bonusResource == ResourceTypes.Wood)
-            province.woodGain += (int)Math.Ceiling(1.3 * UpgradedWoodAndStoneGains[province.lumberMillLevel]);
-        else
-            province.woodGain += UpgradedWoodAndStoneGains[province.lumberMillLevel];
+        province.currentConstruction = Buildings.LumberMill;
+        province.constructionTurns = costs[3];
 
-        province.lumberMillLevel++;
+        if (province.bonusResource == ResourceTypes.Wood)
+            province.valueAfterUpgrade += (int)Math.Ceiling(1.3 * UpgradedWoodAndStoneGains[province.lumberMillLevel]);
+        else
+            province.valueAfterUpgrade += UpgradedWoodAndStoneGains[province.lumberMillLevel];
+
         UpdateUI();
     }
 
@@ -180,12 +217,14 @@ public class UpgradeWindowManager : MonoBehaviour
         Resources.stoneNumber -= costs[1];
         Resources.goldNumber -= costs[2];
 
-        if (province.bonusResource == ResourceTypes.Stone)
-            province.stoneGain += (int)Math.Ceiling(1.3 * UpgradedWoodAndStoneGains[province.StoneQuarryLevel]);
-        else
-            province.stoneGain += UpgradedWoodAndStoneGains[province.StoneQuarryLevel];
+        province.currentConstruction = Buildings.StoneQuarry;
+        province.constructionTurns = costs[3];
 
-        province.StoneQuarryLevel++;
+        if (province.bonusResource == ResourceTypes.Stone)
+            province.valueAfterUpgrade += (int)Math.Ceiling(1.3 * UpgradedWoodAndStoneGains[province.StoneQuarryLevel]);
+        else
+            province.valueAfterUpgrade += UpgradedWoodAndStoneGains[province.StoneQuarryLevel];
+       
         UpdateUI();
     }
 
@@ -223,9 +262,13 @@ public class UpgradeWindowManager : MonoBehaviour
         Resources.woodNumber -= costs[0];
         Resources.stoneNumber -= costs[1];
         Resources.goldNumber -= costs[2];
-        province.foodGain += UpgradedFoodGains[province.farmLevel];
 
-        province.farmLevel++;
+
+        province.currentConstruction = Buildings.Farm;
+        province.constructionTurns = costs[3];
+
+        province.valueAfterUpgrade += UpgradedFoodGains[province.farmLevel];
+
         UpdateUI();
     }
 
@@ -235,9 +278,11 @@ public class UpgradeWindowManager : MonoBehaviour
         Resources.woodNumber -= costs[0];
         Resources.stoneNumber -= costs[1];
         Resources.goldNumber -= costs[2];
-        province.hpBonus += UpgradedHPBonus[province.wallsLevel];
 
-        province.wallsLevel++;
+        province.currentConstruction = Buildings.Walls;
+        province.constructionTurns = costs[3];
+        province.valueAfterUpgrade += UpgradedHPBonus[province.wallsLevel];
+
         UpdateUI();
     }
 
@@ -247,9 +292,10 @@ public class UpgradeWindowManager : MonoBehaviour
         Resources.woodNumber -= costs[0];
         Resources.stoneNumber -= costs[1];
         Resources.goldNumber -= costs[2];
-        province.attackBonus += UpgradedAttackBonus[province.strongholdLevel];
 
-        province.strongholdLevel++;
+        province.currentConstruction = Buildings.Stronghold;
+        province.constructionTurns = costs[3];
+        province.valueAfterUpgrade += UpgradedAttackBonus[province.strongholdLevel];
         UpdateUI();
     }
 }
