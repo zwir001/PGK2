@@ -48,6 +48,8 @@ public class Province
     public int lumberMillLevel;
     public int wallsLevel;
     public int strongholdLevel;
+    public int happinessBalance;
+    public int taxLevel;
 
     public Province(int id, string name, int woodGain, int stoneGain, int taxGain, ResourceTypes resource)
     {
@@ -69,6 +71,7 @@ public class Province
         hpBonus = 0;
         attackBonus = 0;
         isAttacked = false;
+        taxLevel = 1;
     }
 
     public int GetStoneGain()
@@ -112,14 +115,32 @@ public class Province
         return 0;
     }
 
+    public void UpdateHappinessBalance()
+    {
+        happinessBalance = GetImpactOfFoodOnHappiness() + GetImpactOfTaxesOnHappiness();
+    }
+
     public void UpdateProvinceStatus()
     {
-        var happinessLossFromFood = GetImpactOfFoodOnHappiness();
+        UpdateHappinessBalance();
 
-        if (happinessLevel == 100 && happinessLossFromFood > 0 || happinessLevel == -100 && happinessLossFromFood < 0)
+
+        if (happinessLevel == 100 && happinessBalance > 0 || happinessLevel == -100 && happinessBalance < 0)
             return;
 
-        happinessLevel += happinessLossFromFood;
+        happinessLevel += happinessBalance;
+    }
+
+    private int GetImpactOfTaxesOnHappiness()
+    {
+        switch (taxLevel)
+        {
+            case 0: return 10;
+            case 1: return 0;
+            case 2: return -10;
+        }
+
+        return 0;
     }
 }
 public enum ResourceTypes

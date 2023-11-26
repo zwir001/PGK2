@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
@@ -59,6 +61,7 @@ public class UpgradeWindowManager : MonoBehaviour
         new int[] { 2000, 2000, 200 }
     };
 
+    private readonly int[] taxGains = new int[] { 0, 5, 10 };
     private readonly int[] UpgradedWoodAndStoneGains = new int[] { 10, 15, 25 };
     private readonly int[] UpgradedFoodGains = new int[] { 30, 60, 90 };
     private readonly int[] UpgradedHPBonus = new int[] { 500, 1000, 2000 };
@@ -85,14 +88,48 @@ public class UpgradeWindowManager : MonoBehaviour
         var provinceText = MainSection.transform.Find("ProvinceName").GetComponent<TMP_Text>();
         provinceText.text = province.name;
 
-        SetResourceGainNumber("GoldNumber", $"+{province.taxGain}");
-        SetResourceGainNumber("StoneNumber", $"+{province.GetStoneGain()}");
-        SetResourceGainNumber("WoodNumber", $"+{province.GetWoodGain()}");
-        SetResourceGainNumber("HappinessNumber", $"{province.happinessLevel}");
-        SetResourceGainNumber("FoodBalance", $"{province.foodGain-province.foodNeed}");
+        SetText("GoldNumber", $"+{province.taxGain}");
+        SetText("StoneNumber", $"+{province.GetStoneGain()}");
+        SetText("WoodNumber", $"+{province.GetWoodGain()}");
+        SetText("FoodBalance", $"{province.foodGain-province.foodNeed}");
+        SetText("TaxLevel", $"{province.taxLevel}");
+
+        SetVisibilityOfTaxButtons();
+
+        string happinessBalanceText;
+        if (province.happinessBalance >= 0)
+            happinessBalanceText = $"{province.happinessLevel}+{province.happinessBalance}";
+        else
+            happinessBalanceText = $"{province.happinessLevel}{province.happinessBalance}";
+
+        SetText("HappinessNumber", happinessBalanceText);
     }
 
-    private void SetResourceGainNumber(string textFieldName, string resourceGainNumber)
+    private void SetVisibilityOfTaxButtons()
+    {
+        var decreaseButton = MainSection.transform.Find("DecreaseTaxButton").gameObject;
+        var increaseButton = MainSection.transform.Find("IncreaseTaxButton").gameObject;
+
+        if(province.taxLevel == 0)
+        {
+            decreaseButton.SetActive(false);
+        }
+        else
+        {
+            decreaseButton.SetActive(true);
+        }
+
+        if(province.taxLevel == 2)
+        {
+            increaseButton.SetActive(false);
+        }
+        else
+        {
+            increaseButton.SetActive(true);
+        }
+    }
+
+    private void SetText(string textFieldName, string resourceGainNumber)
     {
         var fieldText = MainSection.transform.Find(textFieldName).GetComponent<TMP_Text>();
         fieldText.text = resourceGainNumber;
@@ -152,6 +189,34 @@ public class UpgradeWindowManager : MonoBehaviour
         UpdateUI();
     }
 
+    public void IncreaseTaxLevel()
+    {
+        var newLevel = province.taxLevel + 1;
+        var newTaxGains = taxGains[newLevel];
+
+        if (province.bonusResource == ResourceTypes.Gold)
+            newTaxGains = (int)Math.Ceiling(1.3 * newTaxGains);
+
+        province.taxGain = newTaxGains;
+        province.taxLevel = newLevel;
+        province.UpdateHappinessBalance();
+        UpdateUI();
+    }
+
+    public void DecreaseTaxLevel()
+    {
+        var newLevel = province.taxLevel - 1;
+        var newTaxGains = taxGains[newLevel];
+
+        if (province.bonusResource == ResourceTypes.Gold)
+            newTaxGains = (int)Math.Ceiling(1.3 * newTaxGains);
+
+        province.taxGain = newTaxGains;
+        province.taxLevel = newLevel;
+        province.UpdateHappinessBalance();
+        UpdateUI();
+    }
+
     public void UpgradeFarm()
     {
         var costs = FarmCosts[province.farmLevel];
@@ -182,7 +247,7 @@ public class UpgradeWindowManager : MonoBehaviour
         Resources.woodNumber -= costs[0];
         Resources.stoneNumber -= costs[1];
         Resources.goldNumber -= costs[2];
-        province.attackBonus += UpgradedHPBonus[province.strongholdLevel];
+        province.attackBonus += UpgradedAttackBonus[province.strongholdLevel];
 
         province.strongholdLevel++;
         UpdateUI();
