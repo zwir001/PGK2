@@ -22,8 +22,14 @@ public class BulletLuk : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.gameObject;
+            var characteristics = enemy.GetComponent<EnemyHealth>().GetCharacteristics();
 
-            enemy.GetComponent<EnemyHealth>().AttackEnemy(_damage);
+            if (characteristics.immuneToFire || characteristics.immuneToArrows || characteristics.immuneToSiegeArtillery)
+                enemy.GetComponent<EnemyHealth>().AttackEnemy(_damage * 0.5f);
+            else if(characteristics.vulnerableToFire || characteristics.vulnerableToArrows || characteristics.vulnerableToSiegeArtillery)
+                enemy.GetComponent<EnemyHealth>().AttackEnemy(_damage * 2f);
+            else
+                enemy.GetComponent<EnemyHealth>().AttackEnemy(_damage);
 
             if (enemy.GetComponent<EnemyHealth>().IsKilled())
             {

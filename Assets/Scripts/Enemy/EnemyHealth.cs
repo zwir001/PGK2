@@ -34,4 +34,9 @@ public class EnemyHealth : MonoBehaviour
     {
         return _health <= 0f;
     }
+
+    public Enemy GetCharacteristics()
+    {
+        return _characteristics;
+    }
 }

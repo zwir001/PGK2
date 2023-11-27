@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,8 +16,12 @@ public class AttackTower : MonoBehaviour
 
     private BulletLuk _projectileLuk;
     private BulletPlomien _projectilePlomien;
+    private BulletKatapulta _projectileKatapulta;
     //protected TowerRotation _towerRotation;
     private float _delayTimer;
+
+    // For "Katapulta"
+    private Transform _explosion;
 
     private void Start()
     {
@@ -49,6 +54,12 @@ public class AttackTower : MonoBehaviour
                 {
                     _projectilePlomien = GetPooledObject().GetComponent<BulletPlomien>();
                     _projectilePlomien.Attack(enemy);
+                }
+
+                if (GetPooledObject().GetComponent<BulletKatapulta>() != null)
+                {
+                    _projectileKatapulta = GetPooledObject().GetComponent<BulletKatapulta>();
+                    _projectileKatapulta.Attack(enemy);
                 }
 
                 _delayTimer = 0.0f;
@@ -92,5 +103,22 @@ public class AttackTower : MonoBehaviour
     public void SetDamage(int damage)
     {
 
+    }
+
+    public void ExplosionDuration(Transform bulletTransform, float explosionDiameter)
+    {
+        _explosion = transform.Find("Explosion");
+
+        _explosion.position = new Vector3(bulletTransform.position.x, bulletTransform.position.y, bulletTransform.position.z);
+        _explosion.localScale = new Vector3(explosionDiameter * 5f, explosionDiameter * 5f, explosionDiameter * 5f);
+
+        _explosion.gameObject.SetActive(true);
+
+        Invoke("DeactivateObject", 0.5f);
+    }
+
+    public void DeactivateObject()
+    {
+        _explosion.gameObject.SetActive(false);
     }
 }

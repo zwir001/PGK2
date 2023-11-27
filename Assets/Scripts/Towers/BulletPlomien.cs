@@ -38,7 +38,13 @@ public class BulletPlomien : MonoBehaviour
         {
             var enemy = collision.gameObject;
 
-            enemy.GetComponent<EnemyHealth>().AttackEnemyDamagePerSecond(_damagePerSecond);
+            var characteristics = enemy.GetComponent<EnemyHealth>().GetCharacteristics();
+            if (characteristics.immuneToFire || characteristics.immuneToArrows || characteristics.immuneToSiegeArtillery)
+                enemy.GetComponent<EnemyHealth>().AttackEnemyDamagePerSecond(_damagePerSecond * 0.5f);
+            else if (characteristics.vulnerableToFire || characteristics.vulnerableToArrows || characteristics.vulnerableToSiegeArtillery)
+                enemy.GetComponent<EnemyHealth>().AttackEnemyDamagePerSecond(_damagePerSecond * 2f);
+            else
+                enemy.GetComponent<EnemyHealth>().AttackEnemyDamagePerSecond(_damagePerSecond);
 
             if (enemy.GetComponent<EnemyHealth>().IsKilled())
             {
