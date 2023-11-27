@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class BulletLuk : MonoBehaviour
 {
-    [SerializeField] protected float _bulletSpeed;
-    [SerializeField] protected float _maxDistance;
-    [SerializeField] protected int _damage;
+    [SerializeField] private float _bulletSpeed;
+    [SerializeField] private float _maxDistance;
+    [SerializeField] private int _damage;
 
-    protected Transform _target;
-    protected Vector3 _startingPosition;
-    protected Vector3 _shootingDirection;
-    protected Vector3 _shootingPosition;
-    protected float _currentDistance = 0f;
+    private Transform _target;
+    private Vector3 _startingPosition;
+    private Vector3 _shootingDirection;
+    private Vector3 _shootingPosition;
+    private float _currentDistance = 0f;
 
     private void Awake()
     {

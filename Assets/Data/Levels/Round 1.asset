@@ -15,6 +15,6 @@ MonoBehaviour:
   levelNumber: 1
   enemiesSpawnEvents:
   - enemyToSpawn: {fileID: 8486028687885755129, guid: 736dd520182f4c044bba8b48e5b6ea83, type: 3}
-    timeBetweenSpawn: 0.5
+    timeBetweenSpawn: 0.1
     spawnCount: 10
     timeEndEvent: 0

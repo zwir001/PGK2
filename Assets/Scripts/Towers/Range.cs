@@ -84,4 +84,8 @@ public class Range : MonoBehaviour
     {
         _radius = radius;
     }
+    public float GetRadius()
+    {
+        return _radius;
+    }
 }
