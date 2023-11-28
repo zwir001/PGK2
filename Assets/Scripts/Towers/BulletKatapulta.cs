@@ -7,7 +7,7 @@ public class BulletKatapulta : MonoBehaviour
     [Header("Bullet")]
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private float _maxDistance;
-    [SerializeField] private int _damage;
+    [SerializeField] private float _damage;
 
     private Transform _target;
     private Vector3 _startingPosition;
@@ -127,10 +127,8 @@ public class BulletKatapulta : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _explosionDiameter / 2);
     }
 
-    //public override void upgradebullet(upgradedata _upgrade)
-    //{
-    //    _explosiondiameter = _upgrade.projectilearea;
-    //    _numberofbloonstopop = _upgrade.numberofbloonstopop;
-    //    _damage = _upgrade.damage;
-    //}
+    public void SetDamage(float increase)
+    {
+        _damage += _damage * increase;
+    }
 }

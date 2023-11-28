@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Katapulta
   m_EditorClassIdentifier: 
   towerName: Katapulta
-  towerPrice: 100
+  towerPrice: 1200
   towerSpeed: Niska
   towerDescription: "Katapulty s\u0105 zdolne miota\u0107 kamienie na poka\u017Ane
     odleg\u0142o\u015Bci.  \u015Awietnie sprawdzaj\u0105 si\u0119 w walce z du\u017Cymi

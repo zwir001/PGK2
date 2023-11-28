@@ -96,13 +96,9 @@ public class AttackTower : MonoBehaviour
     {
         return _bullets;
     }
-    public void SetSpeed(float speed)
+    public void SetSpeed(float increase)
     {
-        _speed = speed;
-    }
-    public void SetDamage(int damage)
-    {
-
+        _speed += _speed * increase;
     }
 
     public void ExplosionDuration(Transform bulletTransform, float explosionDiameter)

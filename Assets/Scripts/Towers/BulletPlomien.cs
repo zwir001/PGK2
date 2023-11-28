@@ -6,7 +6,7 @@ public class BulletPlomien : MonoBehaviour
 {
     [SerializeField] protected float _bulletSpeed;
     [SerializeField] protected float _maxDistance;
-    [SerializeField] protected int _damagePerSecond;
+    [SerializeField] protected float _damagePerSecond;
     [SerializeField] private float _timer;
     private float _currentTimer;
 
@@ -77,7 +77,8 @@ public class BulletPlomien : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    //public virtual void UpgradeBullet(UpgradeData _upgrade)
-    //{
-    //}
+    public void SetDamage(float increase)
+    {
+        _damagePerSecond += _damagePerSecond * increase;
+    }
 }

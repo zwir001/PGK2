@@ -80,9 +80,9 @@ public class Range : MonoBehaviour
     }
 
     // Getters and setters
-    public void SetRadius(float radius)
+    public void SetRadius(float increase)
     {
-        _radius = radius;
+        _radius += increase * _radius;
     }
     public float GetRadius()
     {

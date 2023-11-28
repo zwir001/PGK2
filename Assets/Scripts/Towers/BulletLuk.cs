@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 public class BulletLuk : MonoBehaviour
 {
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private float _maxDistance;
-    [SerializeField] private int _damage;
+    [SerializeField] private float _damage;
 
     private Transform _target;
     private Vector3 _startingPosition;
@@ -85,7 +86,8 @@ public class BulletLuk : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    //public virtual void UpgradeBullet(UpgradeData _upgrade)
-    //{
-    //}
+    public void SetDamage(float increase)
+    {
+        _damage += _damage * increase;
+    }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiotaczPlomieni
   m_EditorClassIdentifier: 
   towerName: "Miotacz P\u0142omieni"
-  towerPrice: 100
+  towerPrice: 750
   towerSpeed: "\u015Arednia"
   towerDescription: "Dzi\u0119ki osi\u0105gni\u0119ciom nauki wschodniego cesarstwa
     Rzymskiego uda\u0142o si\u0119 opracowa\u0107 technologi\u0119 ognia greckiego,

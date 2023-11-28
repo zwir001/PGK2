@@ -190,6 +190,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towerInfo: {fileID: 11400000, guid: 5343456f8121d84459ab6269fb6c4dc1, type: 2}
+  _upgradeCostMoc: 800
+  _upgradeCostIncreaseMoc: 1
+  _upgradeCostPrzeladowanie: 500
+  _upgradeCostIncreasePrzeladowanie: 1
+  _upgradeCostOptyka: 300
+  _upgradeCostIncreaseOptyka: 1
 --- !u!61 &7601493624353194333
 BoxCollider2D:
   m_ObjectHideFlags: 0
