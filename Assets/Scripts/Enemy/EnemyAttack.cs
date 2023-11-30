@@ -8,7 +8,12 @@ public class EnemyAttack : MonoBehaviour
     private float _attackTimer;
     private bool _isAttacking;
 
-    private Fortress _fortress; 
+    private Fortress _fortress;
+
+    private void Start()
+    {
+        _isAttacking = false;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

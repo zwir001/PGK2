@@ -6333,6 +6333,7 @@ MonoBehaviour:
   _lostProvinceSprite: {fileID: 21300000, guid: 1c728f7cc6548f24cadceb6478fa25cc, type: 3}
   _attackedProvinceSprite: {fileID: 21300000, guid: a332f9cc2040f6042a04c65fa9e4a000, type: 3}
   _normalProvinceSprite: {fileID: 21300000, guid: 409f9bc68f7fc3646b5386b3fb9e2a3a, type: 3}
+  nextTurnButton: {fileID: 1227534734}
 --- !u!114 &1301690223
 MonoBehaviour:
   m_ObjectHideFlags: 0

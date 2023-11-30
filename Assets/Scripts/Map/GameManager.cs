@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
         if(MapResources.listOfProvinces.Any(x => x.isAttacked))
         {
-            nextTurnButton.SetActive(false);
+            nextTurnButton.SetActive(true);
         }
         else
         {

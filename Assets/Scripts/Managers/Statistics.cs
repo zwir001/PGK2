@@ -48,7 +48,7 @@ public class Statistics : MonoBehaviour
         _oldLevelNumber = 0;
         _levelNumber = 1;
 
-        _lifesText.text += " " + _numberOfLifes.ToString();
+        //_lifesText.text += " " + _numberOfLifes.ToString();
         _moneyAmount = _moneyAtTheBeginning;
         _moneyText.text += " " + _moneyAtTheBeginning.ToString();
     }
@@ -138,6 +138,15 @@ public class Statistics : MonoBehaviour
         _numberOfLifes = _fortressHealth;
         _lifesText.text = "Pozosta쿮 퓓cia:";
         _lifesText.text += " " + _numberOfLifes;
+
+        if (_numberOfLifes <= 0)
+            _gameOverScreen.SetActive(true);
+    }
+
+    public void SetLifeAmount(int _fortressHealth)
+    {
+        _numberOfLifes = _fortressHealth;
+        _lifesText.text = "Pozosta쿮 퓓cia: " + _numberOfLifes;
 
         if (_numberOfLifes <= 0)
             _gameOverScreen.SetActive(true);
