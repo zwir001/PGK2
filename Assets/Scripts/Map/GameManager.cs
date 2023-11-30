@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     private Sprite _attackedProvinceSprite;
     [SerializeField]
     private Sprite _normalProvinceSprite;
+    [SerializeField]
+    private GameObject nextTurnButton;
 
     public void NextTurn()
     {
@@ -37,6 +39,15 @@ public class GameManager : MonoBehaviour
         _goldCounter.text = $"{MapResources.goldNumber}";
         RandomAttackedProvince();
         UpdateButtons();
+
+        if(MapResources.listOfProvinces.Any(x => x.isAttacked))
+        {
+            nextTurnButton.SetActive(false);
+        }
+        else
+        {
+            nextTurnButton.SetActive(true);
+        }
 
         MapResources.listOfProvinces.ForEach(x => x.UpdateProvinceStatus());
         if (MapResources.turn % 20 == 0)
