@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public static class Resources
+public static class MapResources
 {
     public static List<Province> listOfProvinces = new()
     {

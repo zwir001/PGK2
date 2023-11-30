@@ -29,17 +29,17 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
-        Resources.turn++;
+        MapResources.turn++;
         UpdateResources();
-        _turnCounter.text = $"Tura: {Resources.turn}";
-        _woodCounter.text = $"{Resources.woodNumber}";
-        _stoneCounter.text = $"{Resources.stoneNumber}";
-        _goldCounter.text = $"{Resources.goldNumber}";
+        _turnCounter.text = $"Tura: {MapResources.turn}";
+        _woodCounter.text = $"{MapResources.woodNumber}";
+        _stoneCounter.text = $"{MapResources.stoneNumber}";
+        _goldCounter.text = $"{MapResources.goldNumber}";
         RandomAttackedProvince();
         UpdateButtons();
 
-        Resources.listOfProvinces.ForEach(x => x.UpdateProvinceStatus());
-        if (Resources.turn % 20 == 0)
+        MapResources.listOfProvinces.ForEach(x => x.UpdateProvinceStatus());
+        if (MapResources.turn % 20 == 0)
         {
             IncreaseFoodConsumption();
         }
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     private void IncreaseFoodConsumption()
     {
 
-        Resources.listOfProvinces.ForEach(x =>
+        MapResources.listOfProvinces.ForEach(x =>
         {
             if (x.foodNeed == 90)
                 return;
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         //Implementation only for Rome
         Random gen = new Random();
         int prob = gen.Next(100);
-        Resources.listOfProvinces.FirstOrDefault(x => x.id == 9).isAttacked = prob < 50;
+        MapResources.listOfProvinces.FirstOrDefault(x => x.id == 9).isAttacked = prob < 50;
     }
 
     private void UpdateButtons()
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
             UpgradeWindow upgradeWindow = transform.gameObject.GetComponent<UpgradeWindow>();
             var image = transform.gameObject.GetComponent<Image>();
 
-            var province = Resources.listOfProvinces.FirstOrDefault(x => x.id == upgradeWindow.provinceId);
+            var province = MapResources.listOfProvinces.FirstOrDefault(x => x.id == upgradeWindow.provinceId);
 
             if (province.isLost)
             {
@@ -93,8 +93,8 @@ public class GameManager : MonoBehaviour
 
     private void UpdateResources()
     {
-        Resources.woodNumber += Resources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.GetWoodGain());
-        Resources.stoneNumber += Resources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.GetStoneGain());
-        Resources.goldNumber += Resources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.taxGain);
+        MapResources.woodNumber += MapResources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.GetWoodGain());
+        MapResources.stoneNumber += MapResources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.GetStoneGain());
+        MapResources.goldNumber += MapResources.listOfProvinces.Where(x => !x.isLost).Sum(x => x.taxGain);
     }
 }

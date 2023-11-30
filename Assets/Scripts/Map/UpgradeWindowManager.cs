@@ -182,7 +182,7 @@ public class UpgradeWindowManager : MonoBehaviour
 
         var upgradeButton = section.transform.Find("UpgradeButton").gameObject;
 
-        if(Resources.woodNumber < costs[0] || Resources.stoneNumber < costs[1] || Resources.goldNumber < costs[2] || province.currentConstruction != Buildings.None)
+        if(MapResources.woodNumber < costs[0] || MapResources.stoneNumber < costs[1] || MapResources.goldNumber < costs[2] || province.currentConstruction != Buildings.None)
         {
             upgradeButton.SetActive(false);
         }
@@ -195,9 +195,9 @@ public class UpgradeWindowManager : MonoBehaviour
     public void UpgradeLumberMill()
     {
         var costs = LumberMillCosts[province.lumberMillLevel];
-        Resources.woodNumber -= costs[0];
-        Resources.stoneNumber -= costs[1];
-        Resources.goldNumber -= costs[2];
+        MapResources.woodNumber -= costs[0];
+        MapResources.stoneNumber -= costs[1];
+        MapResources.goldNumber -= costs[2];
 
         province.currentConstruction = Buildings.LumberMill;
         province.constructionTurns = costs[3];
@@ -213,9 +213,9 @@ public class UpgradeWindowManager : MonoBehaviour
     public void UpgradeStoneQuary()
     {
         var costs = StoneQuarryCosts[province.StoneQuarryLevel];
-        Resources.woodNumber -= costs[0];
-        Resources.stoneNumber -= costs[1];
-        Resources.goldNumber -= costs[2];
+        MapResources.woodNumber -= costs[0];
+        MapResources.stoneNumber -= costs[1];
+        MapResources.goldNumber -= costs[2];
 
         province.currentConstruction = Buildings.StoneQuarry;
         province.constructionTurns = costs[3];
@@ -259,9 +259,9 @@ public class UpgradeWindowManager : MonoBehaviour
     public void UpgradeFarm()
     {
         var costs = FarmCosts[province.farmLevel];
-        Resources.woodNumber -= costs[0];
-        Resources.stoneNumber -= costs[1];
-        Resources.goldNumber -= costs[2];
+        MapResources.woodNumber -= costs[0];
+        MapResources.stoneNumber -= costs[1];
+        MapResources.goldNumber -= costs[2];
 
 
         province.currentConstruction = Buildings.Farm;
@@ -275,9 +275,9 @@ public class UpgradeWindowManager : MonoBehaviour
     public void UpgradeWalls()
     {
         var costs = WallsCosts[province.wallsLevel];
-        Resources.woodNumber -= costs[0];
-        Resources.stoneNumber -= costs[1];
-        Resources.goldNumber -= costs[2];
+        MapResources.woodNumber -= costs[0];
+        MapResources.stoneNumber -= costs[1];
+        MapResources.goldNumber -= costs[2];
 
         province.currentConstruction = Buildings.Walls;
         province.constructionTurns = costs[3];
@@ -289,9 +289,9 @@ public class UpgradeWindowManager : MonoBehaviour
     public void UpgradeStronghold()
     {
         var costs = WallsCosts[province.strongholdLevel];
-        Resources.woodNumber -= costs[0];
-        Resources.stoneNumber -= costs[1];
-        Resources.goldNumber -= costs[2];
+        MapResources.woodNumber -= costs[0];
+        MapResources.stoneNumber -= costs[1];
+        MapResources.goldNumber -= costs[2];
 
         province.currentConstruction = Buildings.Stronghold;
         province.constructionTurns = costs[3];

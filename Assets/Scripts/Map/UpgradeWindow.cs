@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UpgradeWindow : MonoBehaviour
@@ -20,10 +21,12 @@ public class UpgradeWindow : MonoBehaviour
 
     public void OpenUpgradeWindow()
     {
-        var province = Resources.listOfProvinces.FirstOrDefault(x => x.id == provinceId);
+        var province = MapResources.listOfProvinces.FirstOrDefault(x => x.id == provinceId);
         if (province.isAttacked && !province.isLost)
         {
-            //call another scene
+            PlayerPrefs.SetFloat("attackBonus", (float)province.attackBonus);
+            PlayerPrefs.SetFloat("hpBonus", (float)province.hpBonus);
+            SceneManager.LoadScene("Rome");
         }
         else if (!province.isAttacked && !province.isLost)
         {
