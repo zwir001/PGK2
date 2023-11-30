@@ -25,7 +25,7 @@ public class UpgradeWindow : MonoBehaviour
         if (province.isAttacked && !province.isLost)
         {
             PlayerPrefs.SetFloat("attackBonus", (float)province.attackBonus);
-            PlayerPrefs.SetFloat("hpBonus", (float)province.hpBonus);
+            PlayerPrefs.SetInt("hpBonus", province.hpBonus);
             SceneManager.LoadScene("Rome");
         }
         else if (!province.isAttacked && !province.isLost)

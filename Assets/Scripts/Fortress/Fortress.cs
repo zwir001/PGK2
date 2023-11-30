@@ -18,6 +18,7 @@ public class Fortress : MonoBehaviour
     private void Awake()
     {
         _attackTimer = 0f;
+        _fortressHealth += PlayerPrefs.GetInt("hpBonus");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -36,6 +36,7 @@ public class BulletKatapulta : MonoBehaviour
     private void Awake()
     {
         _startingPosition = transform.parent.parent.position;
+        _damage += _damage * PlayerPrefs.GetFloat("attackBonus");
     }
 
     public void Attack(Transform target)

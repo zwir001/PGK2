@@ -19,6 +19,7 @@ public class BulletPlomien : MonoBehaviour
     private void Awake()
     {
         _startingPosition = transform.parent.parent.position;
+        _damagePerSecond += _damagePerSecond * PlayerPrefs.GetFloat("attackBonus");
     }
 
     private void Update()

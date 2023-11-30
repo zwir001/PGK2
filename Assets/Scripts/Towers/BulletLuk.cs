@@ -16,6 +16,7 @@ public class BulletLuk : MonoBehaviour
     private void Awake()
     {
         _startingPosition = transform.parent.parent.position;
+        _damage += _damage * PlayerPrefs.GetFloat("attackBonus");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
